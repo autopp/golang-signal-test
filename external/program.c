@@ -12,8 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
+  int i = 0;
+  for (; i < argc - 1; i++) {
+    printf("%s ", argv[i]);
+  }
+  printf("%s\n", argv[i]);
+
   return atoi(argv[1]);
 }
