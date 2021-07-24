@@ -29,6 +29,13 @@ func main() {
 	cmd := exec.Command(os.Args[1], os.Args[2:]...)
 	cmd.Run()
 
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "cannot get output of command: %s\n", err)
+		os.Exit(1)
+	}
+	fmt.Println(string(out))
+
 	ps := cmd.ProcessState
 
 	if ps.Exited() {
