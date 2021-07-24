@@ -14,5 +14,17 @@
 
 package main
 
+import (
+	"fmt"
+	"os"
+	"os/exec"
+)
+
 func main() {
+	if len(os.Args) < 2 {
+		fmt.Fprintf(os.Stderr, "usage: %s program [args...]\n", os.Args[0])
+		os.Exit(1)
+	}
+	cmd := exec.Command(os.Args[1], os.Args[2:]...)
+	cmd.Run()
 }
