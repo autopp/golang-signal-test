@@ -8,7 +8,7 @@ endif
 run: $(EXTERNAL)
 	go run main.go $(EXTERNAL) $(ARGS)
 
-$(EXTERNAL): $(EXTERNAL).c
+$(EXTERNAL): $(basename $(EXTERNAL)).c
 	gcc -o $@ -Wall $^
 
 .PHONY:
