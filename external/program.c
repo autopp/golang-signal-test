@@ -21,6 +21,7 @@ int main(int argc, char *argv[]) {
     printf("%s ", argv[i]);
   }
   printf("%s\n", argv[i]);
+  fflush(stdout);
 
   return atoi(argv[1]);
 }
