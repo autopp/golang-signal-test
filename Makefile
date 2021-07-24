@@ -1,6 +1,12 @@
+EXTERNAL=external/program
+
 .PHONY: run
-run: sample
+run: $(EXTERNAL)
 	go run main.go
 
-sample: sample.c
-	cc -o $@ -Wall sample.c
+$(EXTERNAL): $(EXTERNAL).c
+	cc -o $@ -Wall $^
+
+.PHONY:
+clean:
+	rm -f $(EXTERNAL)
