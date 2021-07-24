@@ -18,6 +18,7 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"syscall"
 )
 
 func main() {
@@ -27,4 +28,21 @@ func main() {
 	}
 	cmd := exec.Command(os.Args[1], os.Args[2:]...)
 	cmd.Run()
+
+	ps := cmd.ProcessState
+
+	if ps.Exited() {
+		fmt.Printf("exited with %d\n", ps.ExitCode())
+		os.Exit(0)
+	}
+
+	ws, ok := ps.Sys().(syscall.WaitStatus)
+	if !ok {
+		fmt.Fprintf(os.Stderr, "unknown (*ProcessState).Sys(): %T %#v", ps.Sys(), ps.Sys())
+	}
+
+	if ws.Signaled() {
+		s := ws.Signal()
+		fmt.Printf("signaled with %d (%s)\n", s, s.String())
+	}
 }
