@@ -15,13 +15,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char *argv[]) {
-  int i = 0;
-  for (; i < argc - 1; i++) {
-    printf("%s ", argv[i]);
-  }
-  printf("%s\n", argv[i]);
-  fflush(stdout);
+void show_int_ptr(int *p) {
+  printf("%d\n", *p);
+}
 
-  return atoi(argv[1]);
+int main(int argc, char *argv[]) {
+  if (argc >= 2) {
+    return atoi(argv[1]);
+  }
+
+  show_int_ptr(NULL);
+  return 0;
 }

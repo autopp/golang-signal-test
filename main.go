@@ -15,7 +15,6 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"os"
 	"os/exec"
@@ -28,11 +27,7 @@ func main() {
 		os.Exit(1)
 	}
 	cmd := exec.Command(os.Args[1], os.Args[2:]...)
-	stdout := new(bytes.Buffer)
-	cmd.Stdout = stdout
 	cmd.Run()
-
-	fmt.Print(stdout.String())
 
 	ps := cmd.ProcessState
 
