@@ -27,8 +27,6 @@ func main() {
 		os.Exit(1)
 	}
 	cmd := exec.Command(os.Args[1], os.Args[2:]...)
-	cmd.Run()
-
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "cannot get output of command: %s\n", err)
