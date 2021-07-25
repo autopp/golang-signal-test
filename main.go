@@ -19,6 +19,8 @@ import (
 	"os"
 	"os/exec"
 	"syscall"
+
+	"golang.org/x/sys/unix"
 )
 
 func main() {
@@ -36,11 +38,12 @@ func main() {
 		os.Exit(0)
 	}
 
-	ws, ok := ps.Sys().(syscall.WaitStatus)
+	sys, ok := ps.Sys().(syscall.WaitStatus)
 	if !ok {
 		fmt.Fprintf(os.Stderr, "unknown (*ProcessState).Sys(): %T %#v", ps.Sys(), ps.Sys())
 	}
 
+	ws := unix.WaitStatus(sys)
 	if ws.Signaled() {
 		s := ws.Signal()
 		fmt.Printf("signaled with %d (%s)\n", s, s.String())
